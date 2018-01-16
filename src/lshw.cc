@@ -48,6 +48,7 @@ void usage(const char *progname)
   fprintf(stderr, _("\t-sanitize       sanitize output (remove sensitive information like serial numbers, etc.)\n"));
   fprintf(stderr, _("\t-numeric        output numeric IDs (for PCI, USB, etc.)\n"));
   fprintf(stderr, _("\t-notime         exclude volatile attributes (timestamps) from output\n"));
+  fprintf(stderr, _("\t-phnet          only output physical interface\n"));
   fprintf(stderr, "\n");
 }
 
@@ -92,6 +93,7 @@ char **argv)
   disable("output:businfo");
   disable("output:X");
   disable("output:quiet");
+  disable("output:phnet");
   disable("output:sanitize");
   disable("output:numeric");
   enable("output:time");
@@ -201,7 +203,12 @@ char **argv)
         disable("output:time");
         validoption = true;
     }
-
+    //Only Physical interface
+    if (strcmp(argv[1], "-phnet") == 0)
+    {
+      enable("output:phnet");
+      validoption = true;
+    }
     if(validoption)
     {	/* shift */
       memmove(argv+1, argv+2, (argc-1)*(sizeof(argv[0])));

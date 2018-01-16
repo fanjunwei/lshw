@@ -331,6 +331,13 @@ bool scan_network(hwNode & n)
       hwNode interface("network",
         hw::network);
 
+      //只采集物理网卡
+      if(enabled("output:phnet"))
+      {
+        if (interfaces[i].find("eth") != 0 && interfaces[i].find("en") != 0) {
+          continue;
+        }
+      }
       interface.setLogicalName(interfaces[i]);
       interface.claim();
       interface.addHint("icon", string("network"));
