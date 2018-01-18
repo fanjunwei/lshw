@@ -334,9 +334,9 @@ bool scan_network(hwNode & n)
       //只采集物理网卡
       if(enabled("output:phnet"))
       {
-        if (interfaces[i].find("eth") != 0 && interfaces[i].find("en") != 0) {
-          continue;
-        }
+          if (interfaces[i].find("vxlan") == 0 || interfaces[i].find("tap") == 0 || interfaces[i].find("brq") == 0) {
+              continue;
+          }
       }
       interface.setLogicalName(interfaces[i]);
       interface.claim();
